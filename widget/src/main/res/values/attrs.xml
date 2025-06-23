@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MotionVoiceSearchBar">
+        <attr name="initialState">
+            <enum name="IDLE" value="0" />
+            <enum name="AWAITING_INPUT" value="1" />
+            <enum name="RECORDING" value="2" />
+            <enum name="PROCESSING" value="3" />
+        </attr>
+        <attr name="activeBorderColorA" format="color" />
+        <attr name="activeBorderColorB" format="color" />
+        <attr name="activeBorderColorC" format="color" />
+        <attr name="boxActiveStrokeWidth" format="dimension" />
+        <attr name="activeIconHeight" format="dimension" />
+        <attr name="marqueeBorderAnimationDuration" format="integer" />
+        <attr name="boxActiveBackgroundColor" format="color" />
+        <attr name="activeStartIconBlurRadius" format="float" />
+        <attr name="stateTransitionDuration" format="integer" />
+    </declare-styleable>
+</resources>

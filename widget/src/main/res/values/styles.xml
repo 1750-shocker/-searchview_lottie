@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SearchBarLayoutStyle" parent="TextInputLayoutStyle">
+        <item name="android:layout_height">@dimen/search_bar_default_height</item>
+        <item name="activeIconHeight">@dimen/search_bar_active_icon_height</item>
+        <!-- IDLE 状态背景颜色 -->
+        <item name="backgroundColor">@color/searchbar_voice_search_bg</item>
+        <!-- IDLE 状态边框颜色 -->
+        <item name="boxStrokeColor">@color/border_searchbar_idle</item>
+        <!-- IDLE 状态边框宽度 -->
+        <item name="boxStrokeWidth">@dimen/search_bar_border_width</item>
+        <!-- IDLE 状态显示的 start 图标 -->
+        <item name="startIconDrawable">@drawable/ic_common_microphone_gradient</item>
+        <!-- IDLE 状态显示的 end 图标 -->
+        <item name="endIconDrawable">@drawable/ic_search</item>
+        <!-- IDLE 状态 end 图标的颜色 -->
+        <item name="endIconTint">@color/searchbar_voice_search_end_icon_tint</item>
+        <item name="endIconMode">custom</item>
+        <item name="startIconPaddingStart">@dimen/search_bar_icon_margin_start</item>
+        <!-- startIcon 最小高度，这个高度为 SearchBar 的最低高度，忽略 layout_height -->
+        <item name="startIconMinSize">@dimen/search_bar_min_height</item>
+        <!-- 激活状态边框跑马灯颜色 1 -->
+        <item name="activeBorderColorA">@color/searchbar_voice_search_active_border_a</item>
+        <!-- 激活状态边框跑马灯颜色 2 -->
+        <item name="activeBorderColorB">@color/searchbar_voice_search_active_border_b</item>
+        <!-- 激活状态边框跑马灯颜色 3 -->
+        <item name="activeBorderColorC">@color/searchbar_voice_search_active_border_c</item>
+        <!-- 激活状态边框宽度 -->
+        <item name="boxActiveStrokeWidth">@dimen/search_bar_border_active_width</item>
+        <!-- 激活状态背景颜色 -->
+        <item name="boxActiveBackgroundColor">@color/transparent</item>
+        <!-- 激活状态跑马灯循环动画周期 -->
+        <item name="marqueeBorderAnimationDuration">2333</item>
+        <!-- IDLE 状态与激活状态转换的动画时长 -->
+        <item name="stateTransitionDuration">300</item>
+        <!-- 激活状态 start 图标背景模糊半径 -->
+        <item name="activeStartIconBlurRadius">25</item>
+    </style>
+
+    <style name="SearchBarEdittextStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textColor">@color/color_font_font_primary</item>
+        <item name="android:textColorHint">@color/color_font_font_fourth</item>
+        <item name="android:textAppearance">@style/TextAppearance.DeviceDefault.Body_1</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+    </style>
+</resources>

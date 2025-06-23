@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="search_bar_border_width">1dp</dimen>
+    <dimen name="search_bar_border_active_width">3dp</dimen>
+    <dimen name="search_bar_min_height">80dp</dimen>
+    <dimen name="search_bar_default_height">104dp</dimen>
+    <dimen name="search_bar_active_icon_height">94dp</dimen>
+    <dimen name="search_bar_icon_margin_start">16dp</dimen>
+    <dimen name="search_bar_icon_margin_end">32dp</dimen>
+</resources>

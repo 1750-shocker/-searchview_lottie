@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-284dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvLabelSearchBarDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:text="默认" />
+
+            <com.gta.widget.search.MotionVoiceSearchBar
+                android:layout_width="match_parent"
+                style="@style/SearchBarLayoutStyle"
+                android:layout_marginHorizontal="34dp">
+
+                <EditText
+                    android:hint="试试说 “周杰伦的歌”"
+                    android:inputType="number"
+                    android:imeOptions="actionDone" />
+
+            </com.gta.widget.search.MotionVoiceSearchBar>
+
+            <TextView
+                android:id="@+id/tvLabelSearchBarAwaitingInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:text="等待中" />
+
+            <com.gta.widget.search.MotionVoiceSearchBar
+                android:layout_width="match_parent"
+                style="@style/SearchBarLayoutStyle"
+                app:initialState="AWAITING_INPUT"
+                android:layout_marginHorizontal="34dp">
+
+                <EditText
+                    android:hint="试试说 “方大同的歌”"
+                    android:inputType="number"
+                    android:imeOptions="actionDone" />
+
+            </com.gta.widget.search.MotionVoiceSearchBar>
+
+            <TextView
+                android:id="@+id/tvLabelSearchBarRecording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:text="聆听中"/>
+
+            <com.gta.widget.search.MotionVoiceSearchBar
+                android:layout_width="match_parent"
+                style="@style/SearchBarLayoutStyle"
+                app:initialState="RECORDING"
+                android:layout_marginHorizontal="34dp">
+
+                <EditText
+                    android:hint="试试说 “林俊杰的歌”"
+                    android:inputType="number"
+                    android:imeOptions="actionDone" />
+
+            </com.gta.widget.search.MotionVoiceSearchBar>
+
+            <TextView
+                android:id="@+id/tvLabelSearchBarProcessing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:text="搜索中"/>
+
+            <com.gta.widget.search.MotionVoiceSearchBar
+                android:layout_width="match_parent"
+                style="@style/SearchBarLayoutStyle"
+                app:initialState="PROCESSING"
+                android:layout_marginHorizontal="34dp">
+
+                <EditText
+                    android:hint="试试说 “邓紫棋的歌”"
+                    android:inputType="number"
+                    android:imeOptions="actionDone" />
+
+            </com.gta.widget.search.MotionVoiceSearchBar>
+
+            <TextView
+                android:id="@+id/tvLabelSearchBarPlayground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:text="Playground"/>
+
+            <com.gta.widget.search.MotionVoiceSearchBar
+                android:id="@+id/searchBarPlayground"
+                android:layout_width="match_parent"
+                style="@style/SearchBarLayoutStyle"
+                app:initialState="IDLE"
+                android:layout_marginHorizontal="34dp">
+
+                <EditText
+                    android:hint="114514"
+                    android:imeOptions="actionDone"
+                    style="@style/SearchBarEdittextStyle" />
+
+            </com.gta.widget.search.MotionVoiceSearchBar>
+
+            <MaterialButtonToggleGroup
+                android:id="@+id/toggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:paddingVertical="20dp"
+                android:paddingStart="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:visibility="visible"
+                app:checkedButton="@id/btnFirst">
+                <!--根据实际需求自定义style-->
+                <Button
+                    android:id="@+id/btnFirst"
+                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="IDLE"
+                    app:iconGravity="textStart" />
+                <Button
+                    android:id="@+id/btnSecond"
+                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="AWAITING_INPUT"
+                     />
+                <Button
+                    android:id="@+id/btnThird"
+                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="RECORDING"
+                     />
+                <Button
+                    android:id="@+id/btnForth"
+                   
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="6dp"
+                    android:layout_weight="1"
+                    android:text="PROCESSING" />
+            </MaterialButtonToggleGroup>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

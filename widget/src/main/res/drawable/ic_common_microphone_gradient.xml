@@ -1,0 +1,67 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- 固定颜色线条 -->
+    <path
+        android:pathData="M24 37L24 46"
+        android:strokeWidth="4"
+        android:strokeColor="#6B5BFF"
+        android:fillColor="@android:color/transparent" />
+
+    <!-- 第一段渐变描边 -->
+    <path
+        android:pathData="M18 13C18 9.68629 20.6863 7 24 7V7C27.3137 7 30 9.68629 30 13V24C30 27.3137 27.3137 30 24 30V30C20.6863 30 18 27.3137 18 24V13Z"
+        android:strokeWidth="4"
+        android:fillColor="@android:color/transparent">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="30"
+                android:startY="29"
+                android:endX="23.0551"
+                android:endY="7.30243">
+                <item android:offset="0" android:color="#6B5BFF" />
+                <item android:offset="1" android:color="#3BB4FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 第二段渐变描边 -->
+    <path
+        android:pathData="M12 21V24C12 30.6274 17.3726 36 24 36V36C30.6274 36 36 30.6274 36 24V21"
+        android:strokeWidth="4"
+        android:fillColor="@android:color/transparent">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="29.0769"
+                android:startY="37"
+                android:endX="23.2259"
+                android:endY="21.2883">
+                <item android:offset="0" android:color="#6B5BFF" />
+                <item android:offset="1" android:color="#3BB4FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 渐变填充形状 -->
+    <path
+        android:pathData="M37.5311 3.26725C37.6922 2.83194 38.3078 2.83194 38.4689 3.26725L39.2707 5.43393C39.3213 5.57078 39.4292 5.67869 39.5661 5.72933L41.7327 6.53107C42.1681 6.69215 42.1681 7.30785 41.7327 7.46893L39.5661 8.27067C39.4292 8.32131 39.3213 8.42921 39.2707 8.56607L38.4689 10.7327C38.3078 11.1681 37.6922 11.1681 37.5311 10.7327L36.7293 8.56607C36.6787 8.42921 36.5708 8.32131 36.4339 8.27067L34.2673 7.46893C33.8319 7.30785 33.8319 6.69215 34.2673 6.53107L36.4339 5.72933C36.5708 5.67869 36.6787 5.57079 36.7293 5.43393L37.5311 3.26725Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="38"
+                android:startY="12"
+                android:endX="38"
+                android:endY="2">
+                <item android:offset="0" android:color="#3BB4FF" />
+                <item android:offset="1" android:color="#6B5BFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+</vector>

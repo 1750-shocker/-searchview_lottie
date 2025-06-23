@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="searchbar_voice_search_active_border_a">#3BB4FF</color>
+    <color name="searchbar_voice_search_active_border_b">#6664FF</color>
+    <color name="searchbar_voice_search_active_border_c">#AD75FD</color>
+    <color name="searchbar_voice_search_end_icon_tint">#636363</color>
+</resources>
