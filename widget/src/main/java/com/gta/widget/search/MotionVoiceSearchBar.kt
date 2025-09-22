@@ -15,7 +15,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewPropertyAnimator
+
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -36,6 +36,10 @@ import kotlin.math.max
 
 /**
  * 支持丰富动效的搜索框, 适用于语音搜索场景
+ * 
+ * A motion-enabled search bar component with rich animations, suitable for voice search scenarios.
+ * Supports four states: IDLE, AWAITING_INPUT, RECORDING, and PROCESSING with smooth transitions
+ * and Lottie animations.
  */
 class MotionVoiceSearchBar @JvmOverloads constructor(
     context: Context,
@@ -76,7 +80,7 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
     private val mIconActiveBackgroundDrawable: AnimatedImageDrawable
     private val mEndIconDrawable: Drawable?
     private val mEndIconColorTint: ColorStateList
-    private val mEndIconColorAlpha: Int
+
 
     private val mBackgroundIdleDrawable: MaterialShapeDrawable
     private val mBackgroundActiveDrawable: MarqueeGradientShapeDrawable
@@ -88,7 +92,6 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
     private val marqueeWaveAnimator = ValueAnimator.ofFloat(0f, 1f)
 
     private val mLinearInterpolator = LinearInterpolator(context, attrs)
-    private val mIconVisibilityController = IconVisibilityController()
 
     private val mStateTransitionDuration: Long
 
@@ -134,7 +137,7 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
             mEndIconDrawable = getDrawable(com.google.android.material.R.styleable.TextInputLayout_endIconDrawable)
             mEndIconColorTint = getColorStateList(com.google.android.material.R.styleable.TextInputLayout_endIconTint)
                 ?: ColorStateList.valueOf(resources.getColor(R.color.searchbar_voice_search_end_icon_tint, context.theme))
-            mEndIconColorAlpha = (Color.valueOf(mEndIconColorTint.defaultColor).alpha() * 255f).toInt().coerceIn(0..255)
+
         }
 
         context.withStyledAttributes(attrs, R.styleable.MotionVoiceSearchBar) {
@@ -170,8 +173,8 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
 
         mBackgroundDrawable = StateTransitionDrawableDelegate()
 
-        context.withStyledAttributes(attrs, R.styleable.TextInputLayout) {
-            mIconMarginStart = getDimensionPixelSize(R.styleable.TextInputLayout_startIconPaddingStart, 0)
+        context.withStyledAttributes(attrs, com.google.android.material.R.styleable.TextInputLayout) {
+            mIconMarginStart = getDimensionPixelSize(com.google.android.material.R.styleable.TextInputLayout_startIconMinSize, 0)
         }
 
         // initialize icon and text input layout
@@ -262,41 +265,11 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
             interpolator = mLinearInterpolator
         }
 
-        mBackgroundDrawable.setActiveImmediate(initialState.ordinal >= MotionState.AWAITING_INPUT.ordinal)
-        mIconVisibilityController.setActiveImmediate(initialState.ordinal >= MotionState.AWAITING_INPUT.ordinal)
+        // Set initial state
         setState(initialState)
     }
 
-    fun setState(state: MotionState) {
-        val prevState = mState.value ?: MotionState.IDLE
 
-        // background and icon state changes
-        if (state.ordinal >= MotionState.AWAITING_INPUT.ordinal) {
-            mIconActive.setState(state.toSearchIconState())
-        }
-
-        mBackgroundDrawable.setActive(state.ordinal >= MotionState.AWAITING_INPUT.ordinal)
-        mIconVisibilityController.setActive(state.ordinal >= MotionState.AWAITING_INPUT.ordinal)
-
-        // animation changes
-        if (state.ordinal >= MotionState.RECORDING.ordinal) {
-            if (prevState.ordinal < MotionState.RECORDING.ordinal) {
-                startMarqueeAnimation()
-                mIconActiveBackgroundDrawable.start()
-            }
-        } else {
-            if (prevState.ordinal >= MotionState.RECORDING.ordinal) {
-                stopMarqueeAnimation()
-                mIconActiveBackgroundDrawable.stop()
-            }
-        }
-
-        mState.value = state
-    }
-
-    fun getState(): MotionState {
-        return mState.value ?: MotionState.IDLE
-    }
 
     fun setStartIconMarginStart(margin: Int) {
         mIconMarginStart = margin
@@ -382,6 +355,51 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Sets the current state of the search bar and updates the UI accordingly.
+     * 
+     * @param state The new state to set (IDLE, AWAITING_INPUT, RECORDING, or PROCESSING)
+     */
+    fun setState(state: MotionState) {
+        mState.value = state
+        
+        // Update icon visibility based on state
+        when (state) {
+            MotionState.IDLE -> {
+                mIconIdle.visibility = View.VISIBLE
+                mActiveLayout.visibility = View.GONE
+                stopMarqueeAnimation()
+            }
+            MotionState.AWAITING_INPUT -> {
+                mIconIdle.visibility = View.GONE
+                mActiveLayout.visibility = View.VISIBLE
+                mIconActive.setState(state.toSearchIconState())
+                stopMarqueeAnimation()
+            }
+            MotionState.RECORDING -> {
+                mIconIdle.visibility = View.GONE
+                mActiveLayout.visibility = View.VISIBLE
+                mIconActive.setState(state.toSearchIconState())
+                startMarqueeAnimation()
+            }
+            MotionState.PROCESSING -> {
+                mIconIdle.visibility = View.GONE
+                mActiveLayout.visibility = View.VISIBLE
+                mIconActive.setState(state.toSearchIconState())
+                startMarqueeAnimation()
+            }
+        }
+    }
+
+    /**
+     * Gets the current state of the search bar.
+     * 
+     * @return The current MotionState
+     */
+    fun getState(): MotionState {
+        return mState.value ?: MotionState.IDLE
+    }
+
     override fun addView(child: View, index: Int, params: ViewGroup.LayoutParams) {
         if (!mInitialized || child === mIconLayout || child === mTextInputLayout) {
             super.addView(child, index, params)
@@ -436,7 +454,7 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
     enum class MotionState {
         IDLE, AWAITING_INPUT, RECORDING, PROCESSING;
 
-        internal fun toSearchIconState(): SearchLottieAnimationView.SearchState {
+        fun toSearchIconState(): SearchLottieAnimationView.SearchState {
             return when (this) {
                 IDLE -> SearchLottieAnimationView.SearchState.IDLE
                 AWAITING_INPUT -> SearchLottieAnimationView.SearchState.IDLE
@@ -450,92 +468,7 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
         fun onStateChanged(state: MotionState)
     }
 
-    private inner class IconVisibilityController {
-        private var active: Boolean = false
-        private var activeAnimator: ViewPropertyAnimator? = null
 
-        private val mEndIconAnimListener = { _: ValueAnimator ->
-            mTextInputLayout.setEndIconTintList(mEndIconColorTint.withAlpha(
-                (mEndIconColorAlpha * (1f - mActiveLayout.alpha))
-                    .toInt()
-                    .coerceIn(0..255)
-            ))
-        }
-
-        fun setActiveImmediate(value: Boolean) {
-            if (value) {
-                mIconIdle.visibility = View.GONE
-                mActiveLayout.visibility = View.VISIBLE
-                mActiveLayout.alpha = 1f
-                mTextInputLayout.setEndIconTintList(mEndIconColorTint.withAlpha(0))
-            } else {
-                mIconIdle.visibility = View.VISIBLE
-                mActiveLayout.visibility = View.GONE
-                mIconIdle.alpha = 1f
-                mTextInputLayout.setEndIconTintList(mEndIconColorTint.withAlpha(255))
-            }
-            active = value
-        }
-
-        fun setActive(value: Boolean) {
-            if (active && !value) {
-                activeAnimator?.cancel()
-
-                mIconIdle.visibility = View.VISIBLE
-                mIconIdle.alpha = 1f
-                if (mEndIconDrawable != null) {
-                    mTextInputLayout.endIconDrawable = mEndIconDrawable
-                    mTextInputLayout.setEndIconTintList(mEndIconColorTint.withAlpha(0))
-                }
-
-                mActiveLayout.animate()
-                    .also { activeAnimator = it }
-                    .setInterpolator(mLinearInterpolator)
-                    .alpha(0f)
-                    .setDuration(mStateTransitionDuration)
-                    .setUpdateListener(mEndIconAnimListener)
-                    .onCompleted {
-                        mActiveLayout.visibility = View.GONE
-                        activeAnimator = null
-                    }
-                    .start()
-            } else if (!active && value) {
-                activeAnimator?.cancel()
-
-                mActiveLayout.visibility = View.VISIBLE
-                mActiveLayout.alpha = 0f
-
-                if (mEndIconDrawable != null) {
-                    mTextInputLayout.endIconDrawable = mEndIconDrawable
-                    mTextInputLayout.setEndIconTintList(mEndIconColorTint)
-                }
-
-                mActiveLayout.animate()
-                    .also { activeAnimator = it }
-                    .setInterpolator(mLinearInterpolator)
-                    .alpha(1f)
-                    .setDuration(mStateTransitionDuration)
-                    .setUpdateListener(mEndIconAnimListener)
-                    .onCompleted {
-                        mIconIdle.visibility = View.GONE
-                        activeAnimator = null
-                        mTextInputLayout.endIconDrawable = null
-                    }
-                    .start()
-            }
-
-            active = value
-        }
-
-        private fun ViewPropertyAnimator.onCompleted(block: () -> Unit): ViewPropertyAnimator {
-            return setListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {}
-                override fun onAnimationEnd(animation: Animator) = block()
-                override fun onAnimationCancel(animation: Animator) {}
-                override fun onAnimationRepeat(animation: Animator) {}
-            })
-        }
-    }
 
     private inner class StateTransitionDrawableDelegate: Drawable() {
         private var isActive = false

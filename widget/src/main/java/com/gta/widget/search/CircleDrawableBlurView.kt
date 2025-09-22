@@ -20,7 +20,7 @@ internal class CircleDrawableBlurView @JvmOverloads constructor(
 ) : View(context, attrs) {
 
     private var blurRadius = 25f
-    private var overlayColor = Color.argb(0.5f, 0f, 0f, 0f)
+    private var overlayColor = Color.argb(128, 0, 0, 0) // 0.5f * 255 = 128
 
     private var mDrawable: Drawable? = null
     private var frameDirty = false

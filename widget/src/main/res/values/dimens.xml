@@ -7,4 +7,5 @@
     <dimen name="search_bar_active_icon_height">94dp</dimen>
     <dimen name="search_bar_icon_margin_start">16dp</dimen>
     <dimen name="search_bar_icon_margin_end">32dp</dimen>
+    <dimen name="search_bar_corner_radius">24dp</dimen>
 </resources>

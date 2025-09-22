@@ -17,7 +17,7 @@
         <!-- IDLE 状态 end 图标的颜色 -->
         <item name="endIconTint">@color/searchbar_voice_search_end_icon_tint</item>
         <item name="endIconMode">custom</item>
-        <item name="startIconPaddingStart">@dimen/search_bar_icon_margin_start</item>
+
         <!-- startIcon 最小高度，这个高度为 SearchBar 的最低高度，忽略 layout_height -->
         <item name="startIconMinSize">@dimen/search_bar_min_height</item>
         <!-- 激活状态边框跑马灯颜色 1 -->

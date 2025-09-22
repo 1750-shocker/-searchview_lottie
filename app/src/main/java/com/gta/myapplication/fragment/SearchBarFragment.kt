@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+
 import com.gta.myapplication.R
 import com.gta.myapplication.databinding.FragmentSearchbarBinding
 import com.gta.widget.search.MotionVoiceSearchBar
@@ -52,7 +53,7 @@ class SearchBarFragment : Fragment() {
             true
         }
 
-        binding.toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        binding.toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (!isChecked){
                 return@addOnButtonCheckedListener
             }

@@ -13,7 +13,7 @@ import com.gta.widget.R
   app:lottie_loop="false"
   手动设置setStatus为1，循环播放“等待”动画
   * */
-internal class SearchLottieAnimationView @JvmOverloads constructor(
+class SearchLottieAnimationView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
