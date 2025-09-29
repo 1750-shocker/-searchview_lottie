@@ -363,6 +363,10 @@ class MotionVoiceSearchBar @JvmOverloads constructor(
     fun setState(state: MotionState) {
         mState.value = state
         
+        // Update background based on state
+        val isActive = state != MotionState.IDLE
+        mBackgroundDrawable.setActive(isActive)
+        
         // Update icon visibility based on state
         when (state) {
             MotionState.IDLE -> {
